@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dawei.dwandroid" >
+    package="com.dawei.temp">
 
     <uses-feature android:name="android.hardware.type.watch" />
 
@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.DeviceDefault" >
         <activity
-            android:name=".StubBroadcastActivity"
+            android:name="com.dawei.temp.StubBroadcastActivity"
             android:label="StubBroadcastActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DisplayActivity"
+            android:name="com.dawei.temp.DisplayActivity"
             android:allowEmbedded="true"
             android:exported="true"
             android:taskAffinity=""
@@ -27,7 +27,7 @@
         </activity>
 
         <receiver
-            android:name=".PostNotificationReceiver"
+            android:name="com.dawei.temp.PostNotificationReceiver"
             android:exported="true" >
             <intent-filter>
                 <action android:name="com.dawei.dwandroid.SHOW_NOTIFICATION" />
