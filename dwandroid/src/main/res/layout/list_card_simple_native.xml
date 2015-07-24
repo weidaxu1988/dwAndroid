@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><!--style="@style/native_list_card.thumbnail"-->
+<it.gmariotti.cardslib.library.view.CardViewNative xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/list_cardId"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginTop="4dp"
+    card:card_layout_resourceID="@layout/card_simple" />

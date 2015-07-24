@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="text_dark">#616161</color>
+    <color name="text_normal">#9E9E9E</color>
+    <color name="text_light">#E0E0E0</color>
+
+    <color name="dialog_text_title">#80000000</color>
+    <color name="dialog_text_entry">#000000</color>
+</resources>

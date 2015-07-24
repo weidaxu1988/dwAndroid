@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_margin">1dp</dimen>
+
+    <dimen name="list_padding">8dp</dimen>
+
+    <dimen name="toolbar_profile_height">160dp</dimen>
+
+    <dimen name="dialog_title">14sp</dimen>
+    <dimen name="dialog_entry">18sp</dimen>
+    <dimen name="edit_entry_height">48dp</dimen>
+    <dimen name="list_cap">1dp</dimen>
+</resources>
