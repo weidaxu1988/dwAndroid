@@ -13,7 +13,7 @@ public class CardRecyclerViewActivity extends SingleBackActivity {
     protected void setupContent() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container_content, getRecyclerViewFragment()).commit();
+                .replace(R.id.main_content, getRecyclerViewFragment()).commit();
     }
 
     public RecyclerViewFragment getRecyclerViewFragment() {

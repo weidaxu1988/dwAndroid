@@ -21,7 +21,7 @@ public class SingleBackActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getActivityLayout());
         restoreActionBar();
-        mContainerContentView = findViewById(R.id.container_content);
+        mContainerContentView = findViewById(R.id.main_content);
         mContainerProgressView = findViewById(R.id.container_progress);
         setupContent();
     }

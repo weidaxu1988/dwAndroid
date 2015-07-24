@@ -20,7 +20,7 @@ public class ProgressFragment extends PlaceHolderFragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        mContainerContentView = view.findViewById(R.id.container_content);
+        mContainerContentView = view.findViewById(R.id.main_content);
         mContainerProgressView = view.findViewById(R.id.container_progress);
 
         return view;
