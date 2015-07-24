@@ -37,6 +37,11 @@ public class LoginAndAuthHelper {
     // True if we are currently showing UIs to resolve a connection error.
     boolean mResolving = false;
 
+    public interface Callbacks {
+        void onAuthSuccess(String accountName, boolean newlyAuthenticated);
+        void onAuthFailure(String accountName);
+    }
+
     public LoginAndAuthHelper(Activity activity, Callbacks callbacks, String accountName) {
         LOGD(TAG, "Helper created. Account: " + mAccountName);
         mActivityRef = new WeakReference<>(activity);
@@ -83,7 +88,16 @@ public class LoginAndAuthHelper {
         }
 
         LOGD(TAG, "Helper starting. Connecting " + mAccountName);
-        // use login task to login
+
+        // try to login and authenticate, if we don't have a token yet
+        if (!AccountUtils.hasToken(activity, mAccountName)) {
+            LOGD(TAG, "We don't have auth token for " + mAccountName + " yet, so getting it.");
+            mTokenTask = new GetTokenTask();
+            mTokenTask.execute();
+        }else {
+            LOGD(TAG, "No need for auth token, we already have it.");
+            reportAuthSuccess(false);
+        }
     }
 
     /**
@@ -101,18 +115,22 @@ public class LoginAndAuthHelper {
             mTokenTask.cancel(false);
         }
         mStarted = false;
-        if (mGoogleApiClient.isConnected()) {
-            LOGD(TAG, "Helper disconnecting client.");
-            mGoogleApiClient.disconnect();
-        }
         mResolving = false;
     }
 
-    public interface Callbacks {
-        void onPlusInfoLoaded(String accountName);
+    private void reportAuthSuccess(boolean newlyAuthenticated) {
+        LOGD(TAG, "Auth success for account " + mAccountName + ", newlyAuthenticated=" + newlyAuthenticated);
+        Callbacks callbacks;
+        if (null != (callbacks = mCallbacksRef.get())) {
+            callbacks.onAuthSuccess(mAccountName, newlyAuthenticated);
+        }
+    }
 
-        void onAuthSuccess(String accountName, boolean newlyAuthenticated);
-
-        void onAuthFailure(String accountName);
+    private void reportAuthFailure() {
+        LOGD(TAG, "Auth FAILURE for account " + mAccountName);
+        Callbacks callbacks;
+        if (null != (callbacks = mCallbacksRef.get())) {
+            callbacks.onAuthFailure(mAccountName);
+        }
     }
 }
