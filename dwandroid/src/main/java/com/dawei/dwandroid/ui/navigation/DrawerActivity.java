@@ -1,4 +1,4 @@
-package com.dawei.dwandroid.ui.activitie.navigation;
+package com.dawei.dwandroid.ui.navigation;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -14,10 +14,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.dawei.dwandroid.R;
-import com.dawei.dwandroid.ui.activitie.HostActivity;
+import com.dawei.dwandroid.ui.BaseNavActivity;
 import com.dawei.dwandroid.ui.fragment.PlaceHolderFragment;
 
-public class DrawerActivity extends HostActivity {
+public class DrawerActivity extends BaseNavActivity {
     protected DrawerLayout mDrawerLayout;
     protected ListView mDrawer;
 
@@ -28,9 +28,6 @@ public class DrawerActivity extends HostActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
-
-        restoreActionBar();
-        setupDrawer();
     }
 
     @Override
@@ -40,7 +37,7 @@ public class DrawerActivity extends HostActivity {
     }
 
     @Override
-    public void restoreActionBar() {
+    protected void setupActionBar() {
         mActionBar = createActionBarHelper();
         mActionBar.init();
     }
@@ -78,7 +75,10 @@ public class DrawerActivity extends HostActivity {
         return mFragmentAdapter.getItem(mDrawer.getCheckedItemPosition());
     }
 
-    private void setupDrawer() {
+    @Override
+    protected void trySetupNavigation() {
+        super.trySetupNavigation();
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawer = (ListView) findViewById(R.id.drawer);
 

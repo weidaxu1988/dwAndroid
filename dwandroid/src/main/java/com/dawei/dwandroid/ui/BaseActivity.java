@@ -9,12 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.dawei.dwandroid.R;
-import com.dawei.dwandroid.util.AccountUtils;
-import com.dawei.dwandroid.util.LoginAndAuthHelper;
 import com.dawei.dwandroid.util.PrefUtils;
 import com.dawei.dwandroid.util.UIUtils;
 
-import static com.dawei.dwandroid.util.LogUtils.LOGD;
 import static com.dawei.dwandroid.util.LogUtils.LOGW;
 import static com.dawei.dwandroid.util.LogUtils.makeLogTag;
 
@@ -85,6 +82,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         // Intent in the app.
         UIUtils.enableDisableActivitiesByFormFactor(this);
 
+        setupActionBar();
+    }
+
+    protected void setupActionBar() {
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
@@ -94,11 +95,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * should be add later
      */
-    private void trySetupSwipeRefresh() {
+    protected void trySetupSwipeRefresh() {
 
     }
 
-    private void trySetupNavigation() {
+    protected void trySetupNavigation() {
 
     }
 

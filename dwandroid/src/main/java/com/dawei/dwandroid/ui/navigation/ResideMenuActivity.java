@@ -95,6 +95,8 @@ public class ResideMenuActivity extends BaseNavActivity implements ResideMenu.On
 
     @Override
     protected void trySetupNavigation() {
+        super.trySetupNavigation();
+
         mResideMenu = new ResideMenu(this);
         mResideMenu.setBackground(R.drawable.bg_reside_menu);
         mResideMenu.attachToActivity(this);
