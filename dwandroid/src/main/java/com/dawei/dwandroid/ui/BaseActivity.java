@@ -92,6 +92,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void setupContent() {
+
+    }
+
     /**
      * should be add later
      */

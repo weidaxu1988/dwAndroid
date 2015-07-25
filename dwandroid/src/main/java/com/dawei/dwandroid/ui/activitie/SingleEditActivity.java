@@ -15,26 +15,26 @@ import com.dawei.dwandroid.model.BaseDataItem;
 /**
  * Created by wdxu on 2/12/2014.
  */
-public class SingleEditActivity extends ItemActivity {
+public class SingleEditActivity extends SingleBackActivity {
 
     protected TextView mTitleView;
     protected EditText mEditView;
 
     @Override
-    public void restoreActionBar() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        if (mItem != null)
-            setTitle(mItem.getTitle());
-//        toolbar.setTitle(mItem.getTitle());
+    protected void setupActionBar() {
+        super.setupActionBar();
+
+        Toolbar toolbar = getActionBarToolBar();
+        if (toolbar != null) {
+            toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+            toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
     }
 
     @Override
@@ -58,6 +58,8 @@ public class SingleEditActivity extends ItemActivity {
 
     @Override
     protected void setupContent() {
+        super.setupContent();
+
         mTitleView = (TextView) findViewById(R.id.txt_title);
         mEditView = (EditText) findViewById(R.id.edit_entry);
         mEditView.setOnEditorActionListener(new TextView.OnEditorActionListener() {

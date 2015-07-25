@@ -11,7 +11,7 @@ import com.dawei.dwandroid.ui.fragment.PlaceHolderFragment;
 /**
  * Base Activity for Fragments Host.
  */
-public class BaseNavActivity extends BaseActivity {
+public abstract class BaseNavActivity extends BaseActivity {
     protected FragmentPageHostAdapter mFragmentAdapter;
 
     @Override
