@@ -36,4 +36,14 @@ public class AccountUtils {
         SharedPreferences sp = getSharedPreferences(context);
         return sp.getString(PREF_ACTIVE_ACCOUNT, null);
     }
+
+    public static boolean hasToken(final Context context, final String accountName) {
+        SharedPreferences sp = getSharedPreferences(context);
+        return !TextUtils.isEmpty(sp.getString(makeAccountSpecificPrefKey(accountName,
+                PREFIX_PREF_AUTH_TOKEN), null));
+    }
+
+    private static String makeAccountSpecificPrefKey(String accountName, String prefix) {
+        return prefix + accountName;
+    }
 }

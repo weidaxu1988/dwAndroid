@@ -92,8 +92,8 @@ public class LoginAndAuthHelper {
         // try to login and authenticate, if we don't have a token yet
         if (!AccountUtils.hasToken(activity, mAccountName)) {
             LOGD(TAG, "We don't have auth token for " + mAccountName + " yet, so getting it.");
-            mTokenTask = new GetTokenTask();
-            mTokenTask.execute();
+//            mTokenTask = new GetTokenTask();
+//            mTokenTask.execute();
         }else {
             LOGD(TAG, "No need for auth token, we already have it.");
             reportAuthSuccess(false);
@@ -110,10 +110,10 @@ public class LoginAndAuthHelper {
         }
 
         LOGD(TAG, "Helper stopping.");
-        if (mTokenTask != null) {
-            LOGD(TAG, "Helper cancelling token task.");
-            mTokenTask.cancel(false);
-        }
+//        if (mTokenTask != null) {
+//            LOGD(TAG, "Helper cancelling token task.");
+//            mTokenTask.cancel(false);
+//        }
         mStarted = false;
         mResolving = false;
     }

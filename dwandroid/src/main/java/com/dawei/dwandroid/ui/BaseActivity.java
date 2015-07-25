@@ -22,16 +22,13 @@ import static com.dawei.dwandroid.util.LogUtils.makeLogTag;
  * A base activity based on iosched that handles common functionality in the app.
  * This includes the login and authentication, Action Bar tweaks, amongst others.
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     private static final String TAG = makeLogTag(BaseActivity.class);
 
     // fade in and fade out durations for the main content when switching between
     // different Activities of the app through the Nav Drawer
     private static final int MAIN_CONTENT_FADEOUT_DURATION = 150;
     private static final int MAIN_CONTENT_FADEIN_DURATION = 250;
-
-    // the LoginAndAuthHelper handles signing in to Google Play Services and OAuth
-    private LoginAndAuthHelper mLoginAndAuthHelper;
 
     private Toolbar mActionBarToolBar;
 
@@ -131,72 +128,13 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Verifies services or add listeners
-
-        // Watch for sync state changes
-        // Add later
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        // remove services ori listeners
-        // add later
-    }
-
     protected Toolbar getActionBarToolBar() {
         if (mActionBarToolBar == null) {
-            mActionBarToolBar = findViewById(R.id.toolbar_actionbar);
+            mActionBarToolBar = (Toolbar) findViewById(R.id.toolbar_actionbar);
             if (mActionBarToolBar != null) {
                 setSupportActionBar(mActionBarToolBar);
             }
         }
         return mActionBarToolBar;
-    }
-
-    @Override
-    public void onStart() {
-        LOGD(TAG, "onStart");
-        super.onStart();
-
-        startLoginProcess();
-    }
-
-    private void startLoginProcess() {
-        LOGD(TAG, "Starting Login process.");
-        if (AccountUtils.hasActiveAccount(this)) {
-            String accountName = AccountUtils.getActiveAccountName(this);
-            LOGD(TAG, "Chosen account: " + AccountUtils.getActiveAccountName(this));
-
-            if (mLoginAndAuthHelper != null && mLoginAndAuthHelper.getAccountName().equals(accountName)) {
-                LOGD(TAG, "Helper already set up; simply starting it.");
-                mLoginAndAuthHelper.start();
-                return;
-            }
-
-            LOGD(TAG, "Starting login process with account " + accountName);
-
-            if (mLoginAndAuthHelper != null) {
-                LOGD(TAG, "Tearing down old Helper, was " + mLoginAndAuthHelper.getAccountName());
-                if (mLoginAndAuthHelper.isStarted()) {
-                    LOGD(TAG, "Stopping old Helper");
-                    mLoginAndAuthHelper.stop();
-                }
-                mLoginAndAuthHelper = null;
-            }
-
-            LOGD(TAG, "Creating and starting new Helper with account: " + accountName);
-            mLoginAndAuthHelper = new LoginAndAuthHelper(this, this, accountName);
-            mLoginAndAuthHelper.start();
-        } else {
-            LOGD(TAG, "No active account, back to Login Activity.");
-
-        }
-        // add code to back login activity
     }
 }
