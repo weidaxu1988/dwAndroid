@@ -1,4 +1,4 @@
-package com.dawei.dwandroid.ui.activitie.navigation;
+package com.dawei.dwandroid.ui.navigation;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -7,14 +7,15 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.dawei.dwandroid.R;
-import com.dawei.dwandroid.ui.activitie.HostActivity;
+import com.dawei.dwandroid.ui.BaseNavActivity;
+import com.dawei.dwandroid.util.PrefUtils;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 
 /**
  * Created by Weida on 5/9/2015.
  */
-public class ResideMenuActivity extends HostActivity implements ResideMenu.OnMenuListener {
+public class ResideMenuActivity extends BaseNavActivity implements ResideMenu.OnMenuListener {
 
     public static final float MENU_SCALE = 0.6f;
 
@@ -26,25 +27,31 @@ public class ResideMenuActivity extends HostActivity implements ResideMenu.OnMen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reside_menu);
-        restoreActionBar();
-
-        setupMenu();
-        if (savedInstanceState == null)
-            selectResideMenuItem(0);
     }
 
     @Override
-    public void restoreActionBar() {
+    public void setupActionBar() {
         final ActionBar bar = getSupportActionBar();
-        bar.setDisplayHomeAsUpEnabled(true);
-        bar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+        if (bar != null) {
+            bar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mResideMenu.isOpened()) {
+            mResideMenu.closeMenu();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final int id = item.getItemId();
         if (id == android.R.id.home) {
-            mResideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
+            if (!mResideMenu.isOpened())
+                mResideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -86,7 +93,8 @@ public class ResideMenuActivity extends HostActivity implements ResideMenu.OnMen
         return itemArray;
     }
 
-    private void setupMenu() {
+    @Override
+    protected void trySetupNavigation() {
         mResideMenu = new ResideMenu(this);
         mResideMenu.setBackground(R.drawable.bg_reside_menu);
         mResideMenu.attachToActivity(this);
@@ -106,6 +114,16 @@ public class ResideMenuActivity extends HostActivity implements ResideMenu.OnMen
                 }
             });
             mResideMenu.addMenuItem(item, ResideMenu.DIRECTION_LEFT);
+        }
+
+        selectResideMenuItem(0);
+
+        // When the user runs the app for the first time, we want to land them with the
+        // navigation drawer open. But just the first time.
+        if (!PrefUtils.isWelcomeDone(this)) {
+            // first run of the app starts with the nav drawer open
+            PrefUtils.markWelcomeDone(this);
+            mResideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
         }
     }
 }
